@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TableDataService } from './services/table-data.service';
 
 @Component({
   selector: 'app-root',
@@ -8,19 +9,22 @@ import { Component } from '@angular/core';
 export class AppComponent {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
-  constructor() {
+  constructor(private dataService: TableDataService) {
     console.log('AppComponent.constructor');
   }
 
-  public ngOnInit(): void {
-    console.log('AppComponent A boongus');
+  ngOnInit() {
 
+    // TODO: add a create form group, sub form group changes
+    // TODO: on submit you update the table data service and table.
+    this.dataService.data.subscribe(data => this.dataSource = data);
+  }
+
+  addData(inputData: any) {
+    console.log('inputdata', inputData);
+    this.dataService.addData(inputData);
   }
 }
-
-// TODO: add stand alone components
-// TODO: add material and table component
-// TODO: Add table data svc
 
 export interface PeriodicElement {
   name: string;
